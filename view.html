@@ -42,45 +42,7 @@
     .positive { color: green; }
     .negative { color: red; }
 
-     /* レスポンシブ対応: 画面幅が768px以下の時 */
-    @media (max-width: 768px) {
-      .container {
-        grid-template-areas:
-          "up"
-          "left"
-          "center"
-          "right"
-          "down";
-        grid-gap: 10px;
-      }
-      img {
-        width: 100%; /* 画像が画面幅に応じてリサイズされる */
-      }
-    }
-
-       /* レスポンシブ対応: 480px以下で上下左右にユーザ名や点数を表示 */
-    @media (max-width: 480px) {
-      .container {
-        display: grid;
-        grid-template-areas: 
-          "up"
-          "left"
-          "center"
-          "right"
-          "down";
-        grid-gap: 10px;
-        margin-top: 20px;
-      }
-      .up, .left, .right, .down, .center {
-        text-align: center; /* 中央揃え */
-      }
-      img {
-        width: 80%; /* 画像を少し小さめに */
-      }
-      h1 {
-        font-size: 20px; /* タイトルのフォントサイズを縮小 */
-      }
-    }
+    
 
      /* アニメーションの定義 */
     @keyframes score-change {
