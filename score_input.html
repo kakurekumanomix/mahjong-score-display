@@ -54,7 +54,7 @@
 
   <script>
     // Firebaseの設定
-   const firebaseConfig = {
+  const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
   authDomain: "majan-786e2.firebaseapp.com",
   projectId: "majan-786e2",
@@ -74,7 +74,7 @@
       player4: 25000
     };
 
-    // ページロード時にFirestoreからユーザ名と初期点数を取得
+    // ページが読み込まれたときにFirestoreからユーザ名と初期点数を取得
     function loadUsernamesAndScores() {
       db.collection('scores').doc('current').get().then((doc) => {
         if (doc.exists) {
@@ -104,10 +104,10 @@
       document.getElementById('player4CurrentScore').innerText = currentScores.player4;
     }
 
-    // ページが読み込まれたときにユーザ名と点数を取得
+    // ページが読み込まれたときにデータを取得
     loadUsernamesAndScores();
 
-    // フォーム送信処理
+    // フォーム送信時に点数を更新
     const form = document.getElementById('scoreForm');
     form.addEventListener('submit', function(event) {
       event.preventDefault();
