@@ -3,30 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>麻雀点数表示</title>
+  <title>麻雀点数表示ページにゃ</title>
+  <style>
+    .container {
+      display: grid;
+      grid-template-areas: 
+        "up up up"
+        "left center right"
+        "down down down";
+      grid-gap: 20px;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .up { grid-area: up; }
+    .left { grid-area: left; }
+    .right { grid-area: right; }
+    .down { grid-area: down; }
+    .center { grid-area: center; }
+  </style>
 </head>
 <body>
-  <h1>現在の点数</h1>
-  <ul id="scoreList"></ul>
+  <h1>麻雀点数表示ページにゃ</h1>
+
+  <ul id="scoreList" class="container">
+    <div class="up">
+      <label id="player1Label"></label>: <span id="player1Score"></span>点
+    </div>
+    <div class="left">
+      <label id="player3Label"></label>: <span id="player3Score"></span>点
+    </div>
+    <div class="right">
+      <label id="player4Label"></label>: <span id="player4Score"></span>点
+    </div>
+    <div class="down">
+      <label id="player2Label"></label>: <span id="player2Score"></span>点
+    </div>
+  </ul>
 
   <script>
     function updateScores() {
+      const players = JSON.parse(localStorage.getItem('players'));
       const scores = JSON.parse(localStorage.getItem('mahjongScores'));
-      if (scores) {
-        const scoreList = document.getElementById('scoreList');
-        scoreList.innerHTML = `
-          <li>${scores.player1.name}: ${scores.player1.score}点</li>
-          <li>${scores.player2.name}: ${scores.player2.score}点</li>
-          <li>${scores.player3.name}: ${scores.player3.score}点</li>
-          <li>${scores.player4.name}: ${scores.player4.score}点</li>
-        `;
-      } else {
-        alert('まだ点数が入力されていません。');
-      }
-    }
 
-    // ページがロードされた時に点数を更新
-    window.onload = updateScores;
-  </script>
-</body>
-</html>
+      document.getElementById('player1Label').innerText = players.player1;
+      document.getElementById('player2Label').inner
