@@ -46,4 +46,23 @@
       const scores = JSON.parse(localStorage.getItem('mahjongScores'));
 
       document.getElementById('player1Label').innerText = players.player1;
-      document.getElementById('player2Label').inner
+      document.getElementById('player2Label').innerText = players.player2;
+      document.getElementById('player3Label').innerText = players.player3;
+      document.getElementById('player4Label').innerText = players.player4;
+
+      document.getElementById('player1Score').innerText = scores.player1;
+      document.getElementById('player2Score').innerText = scores.player2;
+      document.getElementById('player3Score').innerText = scores.player3;
+      document.getElementById('player4Score').innerText = scores.player4;
+    }
+
+    // ページがロードされた時に点数を更新
+    window.onload = updateScores;
+
+    // 5秒ごとにページをリロードして最新の点数を反映
+    setInterval(function() {
+      location.reload();
+    }, 5000);  // 5000ミリ秒 = 5秒
+  </script>
+</body>
+</html>
