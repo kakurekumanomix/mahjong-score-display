@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>点数移動履歴</title>
+
+  <!-- Firebase SDK (バージョン8系のブラウザ用) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    table {
+      width: 80%;
+      margin: auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>点数移動履歴</h1>
+  
+  <table id="historyTable">
+    <thead>
+      <tr>
+        <th>プレイヤー1の変動</th>
+        <th>プレイヤー2の変動</th>
+        <th>プレイヤー3の変動</th>
+        <th>プレイヤー4の変動</th>
+        <th>日時</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Firestoreからデータを読み込んでここに追加 -->
+    </tbody>
+  </table>
+
+  <script>
+    // Firebaseの設定
+    const firebaseConfig = {
+  apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
+  authDomain: "majan-786e2.firebaseapp.com",
+  projectId: "majan-786e2",
+  storageBucket: "majan-786e2.appspot.com",
+  messagingSenderId: "571476331928",
+  appId: "1:571476331928:web:63b9707601866ca2432fed"
+    };
+
+    // Firebaseを初期化
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Firestoreのデータをリアルタイムで読み込み
+    db.collection('history').orderBy('timestamp', 'desc').onSnapshot((querySnapshot) => {
+      const historyTableBody = document.querySelector('#historyTable tbody');
+      historyTableBody.innerHTML = ''; // テーブルをクリア
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const row = `
+          <tr>
+            <td>${data.player1Change || 0}</td>
+            <td>${data.player2Change || 0}</td>
+            <td>${data.player3Change || 0}</td>
+            <td>${data.player4Change || 0}</td>
+            <td>${data.timestamp ? data.timestamp.toDate().toLocaleString() : '不明'}</td>
+          </tr>
+        `;
+        historyTableBody.innerHTML += row;
+      });
+    });
+  </script>
+</body>
+</html>
