@@ -399,17 +399,11 @@ button:active {
       }, { merge: true }).then(() => {
         alert('ユーザ名と点数が更新されたにゃ！');
         
-  // プルダウンのデフォルトに戻す
-    document.getElementById('roundSelect').value = '東1'; // デフォルト値に戻す
-    document.getElementById('honbaSelect').value = '0';   // デフォルト値に戻す
-    document.getElementById('player1Sign').value = '1';   // プラスをデフォルトに戻す
-    document.getElementById('player1Change').value = '0'; // 点数を0に戻す
-    document.getElementById('player2Sign').value = '1';
-    document.getElementById('player2Change').value = '0';
-    document.getElementById('player3Sign').value = '1';
-    document.getElementById('player3Change').value = '0';
-    document.getElementById('player4Sign').value = '1';
-    document.getElementById('player4Change').value = '0';
+ // 点数の増減プルダウンをデフォルトに戻す
+    document.getElementById('player1Change').value = '0'; // プレイヤー1の点数増減リセット
+    document.getElementById('player2Change').value = '0'; // プレイヤー2の点数増減リセット
+    document.getElementById('player3Change').value = '0'; // プレイヤー3の点数増減リセット
+    document.getElementById('player4Change').value = '0'; // プレイヤー4の点数増減リセット
         
         
       }).catch((error) => {
