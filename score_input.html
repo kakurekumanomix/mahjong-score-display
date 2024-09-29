@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>点数入力</title>
+  <style>
+    .container {
+      display: grid;
+      grid-template-areas: 
+        "up up up"
+        "left center right"
+        "down down down";
+      grid-gap: 20px;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .up { grid-area: up; }
+    .left { grid-area: left; }
+    .right { grid-area: right; }
+    .down { grid-area: down; }
+    .center { grid-area: center; }
+  </style>
+</head>
+<body>
+  <h1>点数入力</h1>
+  <ul id="scoreList" class="container">
+    <div class="up">
+      <label id="player1Label"></label>:
+      <span id="player1CurrentScore">25000</span>点
+      <input type="number" id="player1Change" placeholder="増減" required><br>
+    </div>
+    <div class="left">
+      <label id="player3Label"></label>:
+      <span id="player3CurrentScore">25000</span>点
+      <input type="number" id="player3Change" placeholder="増減" required><br>
+    </div>
+    <div class="right">
+      <label id="player4Label"></label>:
+      <span id="player4CurrentScore">25000</span>点
+      <input type="number" id="player4Change" placeholder="増減" required><br>
+    </div>
+    <div class="down">
+      <label id="player2Label"></label>:
+      <span id="player2CurrentScore">25000</span>点
+      <input type="number" id="player2Change" placeholder="増減" required><br>
+    </div>
+    <div class="center">
+      <button type="submit" id="updateButton">更新にゃ</button>
+    </div>
+  </ul>
+
+  <script>
+    const players = JSON.parse(localStorage.getItem('players'));
+    let scores = JSON.parse(localStorage.getItem('mahjongScores'));
+
+    document.getElementById('player1Label').innerText = players.player1;
+    document.getElementById('player2Label').innerText = players.player2;
+    document.getElementById('player3Label').innerText = players.player3;
+    document.getElementById('player4Label').innerText = players.player4;
+
+    function displayScores() {
+      document.getElementById('player1CurrentScore').innerText = scores.player1;
+      document.getElementById('player2CurrentScore').innerText = scores.player2;
+      document.getElementById('player3CurrentScore').innerText = scores.player3;
+      document.getElementById('player4CurrentScore').innerText = scores.player4;
+    }
+
+    displayScores();
+
+    const form = document.getElementById('scoreForm');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const player1Change = parseInt(document.getElementById('player1Change').value);
+      const player2Change = parseInt(document.getElementById('player2Change').value);
+      const player3Change = parseInt(document.getElementById('player3Change').value);
+      const player4Change = parseInt(document.getElementById('player4Change').value);
+
+      scores.player1 += player1Change;
+      scores.player2 += player2Change;
+      scores.player3 += player3Change;
+      scores.player4 += player4Change;
+
+      localStorage.setItem('mahjongScores', JSON.stringify(scores));
+
+      displayScores();
+      alert('点数が更新されました！');
+    });
+  </script>
+</body>
+</html>
