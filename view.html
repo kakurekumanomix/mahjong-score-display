@@ -109,7 +109,7 @@
   <!-- ユーザ名と点数の変更が可能なフォーム -->
   <form id="scoreForm" class="container">
     <div class="up">
-      <label id="player1Label">プレイヤー1</label>: <span id="player1CurrentScore">未設定</span>点
+      <label id="player1Label">プレイヤー1<span id="player1Crown"></span></label>: <span id="player1CurrentScore">未設定</span>点
       <br>
       <input type="text" id="player1NameInput" placeholder="プレイヤー名を変更するにゃ">
       <br><br>
@@ -128,7 +128,7 @@
     </div>
 
     <div class="left">
-      <label id="player3Label">プレイヤー3</label>: <span id="player3CurrentScore">未設定</span>点
+      <label id="player3Label">プレイヤー3<span id="player3Crown"></span></label>: <span id="player3CurrentScore">未設定</span>点
       <br>
       <input type="text" id="player3NameInput" placeholder="プレイヤー名を変更するにゃ">
       <br><br>
@@ -147,7 +147,7 @@
     </div>
 
     <div class="right">
-      <label id="player4Label">プレイヤー4</label>: <span id="player4CurrentScore">未設定</span>点
+      <label id="player4Label">プレイヤー4<span id="player4Crown"></span></label>: <span id="player4CurrentScore">未設定</span>点
       <br>
       <input type="text" id="player4NameInput" placeholder="プレイヤー名を変更するにゃ">
       <br><br>
@@ -166,7 +166,7 @@
     </div>
 
     <div class="down">
-      <label id="player2Label">プレイヤー2</label>: <span id="player2CurrentScore">未設定</span>点
+      <label id="player2Label">プレイヤー2<span id="player2Crown"></span></label>: <span id="player2CurrentScore">未設定</span>点
       <br>
       <input type="text" id="player2NameInput" placeholder="プレイヤー名を変更するにゃ">
       <br><br>
@@ -375,6 +375,15 @@
   });
 });
 
+   // 👑を表示
+        displayCrown();
+      } else {
+        console.log('ドキュメントが見つかりません');
+      }
+    }, (error) => {
+      console.error("データの読み取り中にエラーが発生しました: ", error);
+    });
+    
 // 👑を表示する関数
     function displayCrown() {
       // プレイヤーのスコアを比較
