@@ -38,12 +38,7 @@
       text-align: center;
     }
 
-     .crown {
-      font-size: 24px;
-      color: gold;
-      margin-left: 10px;
-    }
-
+    
        /* プラスは青、マイナスは赤のスタイル */
     .positive { color: blue; }
     .negative { color: red; }
@@ -109,7 +104,7 @@
   <!-- ユーザ名と点数の変更が可能なフォーム -->
   <form id="scoreForm" class="container">
     <div class="up">
-      <label id="player1Label">プレイヤー1<span id="player1Crown"></span></label>: <span id="player1CurrentScore">未設定</span>点
+      <label id="player1Label">プレイヤー1</label>: <span id="player1CurrentScore">未設定</span>点
       <br>
       <input type="text" id="player1NameInput" placeholder="プレイヤー名を変更するにゃ">
       <br><br>
@@ -128,7 +123,7 @@
     </div>
 
     <div class="left">
-      <label id="player3Label">プレイヤー3<span id="player3Crown"></span></label>: <span id="player3CurrentScore">未設定</span>点
+      <label id="player3Label">プレイヤー3</label>: <span id="player3CurrentScore">未設定</span>点
       <br>
       <input type="text" id="player3NameInput" placeholder="プレイヤー名を変更するにゃ">
       <br><br>
@@ -147,7 +142,7 @@
     </div>
 
     <div class="right">
-      <label id="player4Label">プレイヤー4<span id="player4Crown"></span></label>: <span id="player4CurrentScore">未設定</span>点
+      <label id="player4Label">プレイヤー4</label>: <span id="player4CurrentScore">未設定</span>点
       <br>
       <input type="text" id="player4NameInput" placeholder="プレイヤー名を変更するにゃ">
       <br><br>
@@ -166,7 +161,7 @@
     </div>
 
     <div class="down">
-      <label id="player2Label">プレイヤー2<span id="player2Crown"></span></label>: <span id="player2CurrentScore">未設定</span>点
+      <label id="player2Label">プレイヤー2</label>: <span id="player2CurrentScore">未設定</span>点
       <br>
       <input type="text" id="player2NameInput" placeholder="プレイヤー名を変更するにゃ">
       <br><br>
@@ -311,47 +306,12 @@
         currentScores.player2 = data.player2 || 25000;
         currentScores.player3 = data.player3 || 25000;
         currentScores.player4 = data.player4 || 25000;
-
-        
-      // 👑を表示
-        displayCrown();
       } else {
         console.log('ドキュメントが見つかりません');
       }
     }, (error) => {
       console.error("データの読み取り中にエラーが発生しました: ", error);
     });
-
-    // 👑を表示する関数
-    function displayCrown() {
-  const scores = [
-    { player: 'player1', score: currentScores.player1 },
-    { player: 'player2', score: currentScores.player2 },
-    { player: 'player3', score: currentScores.player3 },
-    { player: 'player4', score: currentScores.player4 }
-  ];
-
-  const highestScore = Math.max(...scores.map(s => s.score));
-
-  // 👑を消去（存在する場合のみ実行）
-  const player1Crown = document.getElementById('player1Crown');
-  const player2Crown = document.getElementById('player2Crown');
-  const player3Crown = document.getElementById('player3Crown');
-  const player4Crown = document.getElementById('player4Crown');
-
-  if (player1Crown) player1Crown.textContent = '';
-  if (player2Crown) player2Crown.textContent = '';
-  if (player3Crown) player3Crown.textContent = '';
-  if (player4Crown) player4Crown.textContent = '';
-
-  // 最も高い点数のプレイヤーに👑を表示
-  scores.forEach(player => {
-    const crownElement = document.getElementById(player.player + 'Crown');
-    if (crownElement && player.score === highestScore) {
-      crownElement.textContent = '👑';
-    }
-  });
-}
 
     // フォーム送信処理
     const form = document.getElementById('scoreForm');
@@ -410,8 +370,6 @@
   });
 });
 
-
-    
     // 点数リセット処理
     const resetButton = document.getElementById('resetButton');
     resetButton.addEventListener('click', function() {
