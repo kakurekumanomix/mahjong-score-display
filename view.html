@@ -24,6 +24,13 @@
     .left { grid-area: left; }
     .right { grid-area: right; }
     .down { grid-area: down; }
+    .image-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+    img {
+      width: 100px; /* サイズを調整 */
+     }
   </style>
 </head>
 <body>
@@ -43,6 +50,11 @@
       <label id="player2Label">未設定</label>: <span id="player2Score">未設定</span>点
     </div>
   </ul>
+
+    <!-- 画面下部に画像を埋め込む -->
+  <div class="image-container">
+    <img src="images/myimage.png" alt="麻雀のイラスト">
+  </div>
 
   <script>
     // Firebaseの設定
