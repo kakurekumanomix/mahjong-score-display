@@ -55,25 +55,24 @@
   appId: "1:571476331928:web:63b9707601866ca2432fed"
     };
 
-    // Firebaseを初期化
     firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+    const db = firebase
 
-    // Firestoreのデータをリアルタイムで監視して表示
+      // Firestoreのデータをリアルタイムで監視して表示
     db.collection('scores').doc('current').onSnapshot((doc) => {
       if (doc.exists) {
         const data = doc.data();
 
-        // ユーザ名と点数を表示
+        // 点数入力ページと同じユーザ名と点数を表示
         document.getElementById('player1Label').innerText = data.player1Name || '未設定';
         document.getElementById('player2Label').innerText = data.player2Name || '未設定';
         document.getElementById('player3Label').innerText = data.player3Name || '未設定';
         document.getElementById('player4Label').innerText = data.player4Name || '未設定';
 
-        document.getElementById('player1Score').innerText = data.player1 || '未設定';
-        document.getElementById('player2Score').innerText = data.player2 || '未設定';
-        document.getElementById('player3Score').innerText = data.player3 || '未設定';
-        document.getElementById('player4Score').innerText = data.player4 || '未設定';
+        document.getElementById('player1Score').innerText = data.player1 !== undefined ? data.player1 : '未設定';
+        document.getElementById('player2Score').innerText = data.player2 !== undefined ? data.player2 : '未設定';
+        document.getElementById('player3Score').innerText = data.player3 !== undefined ? data.player3 : '未設定';
+        document.getElementById('player4Score').innerText = data.player4 !== undefined ? data.player4 : '未設定';
       } else {
         console.log('ドキュメントが見つかりません');
       }
