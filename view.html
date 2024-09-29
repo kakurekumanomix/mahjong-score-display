@@ -24,6 +24,7 @@
     .left { grid-area: left; }
     .right { grid-area: right; }
     .down { grid-area: down; }
+    .center { grid-area: center; }
     .image-container {
       text-align: center;
       margin-top: 50px;
@@ -31,6 +32,10 @@
     img {
       width: 400px; /* 画像の幅を400pxに調整 */
       height: auto; /* 自動で高さを調整し、縦横比を維持 */
+    }
+    .reset-button-container {
+      margin-top: 20px;
+      text-align: center;
     }
   </style>
 </head>
@@ -42,8 +47,8 @@
     <div class="up">
       <label id="player1Label">プレイヤー1</label>: <span id="player1CurrentScore">未設定</span>点
       <br>
-      <input type="text" id="player1NameInput" placeholder="プレイヤー名を変更">
-      <br><br> <!-- 改行を挟む -->
+      <input type="text" id="player1NameInput" placeholder="プレイヤー1名を変更">
+      <br><br>
       <select id="player1Sign">
         <option value="1">プラス</option>
         <option value="-1">マイナス</option>
@@ -61,8 +66,8 @@
     <div class="left">
       <label id="player3Label">プレイヤー3</label>: <span id="player3CurrentScore">未設定</span>点
       <br>
-      <input type="text" id="player3NameInput" placeholder="プレイヤー名を変更">
-      <br><br> <!-- 改行を挟む -->
+      <input type="text" id="player3NameInput" placeholder="プレイヤー3名を変更">
+      <br><br>
       <select id="player3Sign">
         <option value="1">プラス</option>
         <option value="-1">マイナス</option>
@@ -80,8 +85,8 @@
     <div class="right">
       <label id="player4Label">プレイヤー4</label>: <span id="player4CurrentScore">未設定</span>点
       <br>
-      <input type="text" id="player4NameInput" placeholder="プレイヤー名を変更">
-      <br><br> <!-- 改行を挟む -->
+      <input type="text" id="player4NameInput" placeholder="プレイヤー4名を変更">
+      <br><br>
       <select id="player4Sign">
         <option value="1">プラス</option>
         <option value="-1">マイナス</option>
@@ -99,8 +104,8 @@
     <div class="down">
       <label id="player2Label">プレイヤー2</label>: <span id="player2CurrentScore">未設定</span>点
       <br>
-      <input type="text" id="player2NameInput" placeholder="プレイヤー名を変更">
-      <br><br> <!-- 改行を挟む -->
+      <input type="text" id="player2NameInput" placeholder="プレイヤー2名を変更">
+      <br><br>
       <select id="player2Sign">
         <option value="1">プラス</option>
         <option value="-1">マイナス</option>
@@ -119,6 +124,11 @@
       <button type="submit" id="updateButton">更新にゃ</button>
     </div>
   </form>
+
+  <!-- 点数リセットボタンを追加 -->
+  <div class="reset-button-container">
+    <button id="resetButton">点数リセット</button>
+  </div>
 
   <!-- 画面下部に画像を埋め込む -->
   <div class="image-container">
@@ -210,6 +220,30 @@
         console.error('エラーが発生しました:', error);
       });
     });
+
+    // 点数リセット処理
+    const resetButton = document.getElementById('resetButton');
+    resetButton.addEventListener('click', function() {
+      currentScores = {
+        player1: 25000,
+        player2: 25000,
+        player3: 25000,
+        player4: 25000
+      };
+
+      // Firestoreにリセットされた点数を保存
+      db.collection('scores').doc('current').set({
+        player1: currentScores.player1,
+        player2: currentScores.player2,
+        player3: currentScores.player3,
+        player4: currentScores.player4
+      }, { merge: true }).then(() => {
+        alert('点数がリセットされました！');
+      }).catch((error) => {
+        console.error('エラーが発生しました:', error);
+      });
+    });
   </script>
 </body>
 </html>
+
