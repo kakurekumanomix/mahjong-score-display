@@ -324,28 +324,34 @@
 
     // 👑を表示する関数
     function displayCrown() {
-      const scores = [
-        { player: 'player1', score: currentScores.player1 },
-        { player: 'player2', score: currentScores.player2 },
-        { player: 'player3', score: currentScores.player3 },
-        { player: 'player4', score: currentScores.player4 }
-      ];
+  const scores = [
+    { player: 'player1', score: currentScores.player1 },
+    { player: 'player2', score: currentScores.player2 },
+    { player: 'player3', score: currentScores.player3 },
+    { player: 'player4', score: currentScores.player4 }
+  ];
 
-      const highestScore = Math.max(...scores.map(s => s.score));
+  const highestScore = Math.max(...scores.map(s => s.score));
 
-      // 👑を消去
-      document.getElementById('player1Crown').textContent = '';
-      document.getElementById('player2Crown').textContent = '';
-      document.getElementById('player3Crown').textContent = '';
-      document.getElementById('player4Crown').textContent = '';
+  // 👑を消去（存在する場合のみ実行）
+  const player1Crown = document.getElementById('player1Crown');
+  const player2Crown = document.getElementById('player2Crown');
+  const player3Crown = document.getElementById('player3Crown');
+  const player4Crown = document.getElementById('player4Crown');
 
-      // 最も高い点数のプレイヤーに👑を表示
-      scores.forEach(player => {
-        if (player.score === highestScore) {
-          document.getElementById(player.player + 'Crown').textContent = '👑';
-        }
-      });
+  if (player1Crown) player1Crown.textContent = '';
+  if (player2Crown) player2Crown.textContent = '';
+  if (player3Crown) player3Crown.textContent = '';
+  if (player4Crown) player4Crown.textContent = '';
+
+  // 最も高い点数のプレイヤーに👑を表示
+  scores.forEach(player => {
+    const crownElement = document.getElementById(player.player + 'Crown');
+    if (crownElement && player.score === highestScore) {
+      crownElement.textContent = '👑';
     }
+  });
+}
 
     // フォーム送信処理
     const form = document.getElementById('scoreForm');
