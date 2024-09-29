@@ -38,6 +38,12 @@
       text-align: center;
     }
 
+     .crown {
+      font-size: 24px;
+      color: gold;
+      margin-left: 10px;
+    }
+
        /* プラスは青、マイナスは赤のスタイル */
     .positive { color: blue; }
     .negative { color: red; }
@@ -369,6 +375,32 @@
   });
 });
 
+// 👑を表示する関数
+    function displayCrown() {
+      // プレイヤーのスコアを比較
+      const scores = [
+        { player: 'player1', score: currentScores.player1 },
+        { player: 'player2', score: currentScores.player2 },
+        { player: 'player3', score: currentScores.player3 },
+        { player: 'player4', score: currentScores.player4 }
+      ];
+
+      const highestScore = Math.max(...scores.map(s => s.score));
+
+      // 👑を消去
+      document.getElementById('player1Crown').innerText = '';
+      document.getElementById('player2Crown').innerText = '';
+      document.getElementById('player3Crown').innerText = '';
+      document.getElementById('player4Crown').innerText = '';
+
+      // 最も高い点数のプレイヤーに👑を表示
+      scores.forEach(player => {
+        if (player.score === highestScore) {
+          document.getElementById(player.player + 'Crown').innerText = '👑';
+        }
+      });
+    }
+    
     // 点数リセット処理
     const resetButton = document.getElementById('resetButton');
     resetButton.addEventListener('click', function() {
