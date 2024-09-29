@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>麻雀点数入力</title>
+</head>
+<body>
+  <h1>麻雀の点数入力ページ</h1>
+  <form id="scoreForm">
+    <label for="player1">プレイヤー1の名前:</label>
+    <input type="text" id="player1Name" required>
+    <input type="number" id="player1Score" placeholder="点数" required><br>
+
+    <label for="player2">プレイヤー2の名前:</label>
+    <input type="text" id="player2Name" required>
+    <input type="number" id="player2Score" placeholder="点数" required><br>
+
+    <label for="player3">プレイヤー3の名前:</label>
+    <input type="text" id="player3Name" required>
+    <input type="number" id="player3Score" placeholder="点数" required><br>
+
+    <label for="player4">プレイヤー4の名前:</label>
+    <input type="text" id="player4Name" required>
+    <input type="number" id="player4Score" placeholder="点数" required><br>
+
+    <button type="submit">結果を更新する</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('scoreForm');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const scores = {
+        player1: {
+          name: document.getElementById('player1Name').value,
+          score: document.getElementById('player1Score').value
+        },
+        player2: {
+          name: document.getElementById('player2Name').value,
+          score: document.getElementById('player2Score').value
+        },
+        player3: {
+          name: document.getElementById('player3Name').value,
+          score: document.getElementById('player3Score').value
+        },
+        player4: {
+          name: document.getElementById('player4Name').value,
+          score: document.getElementById('player4Score').value
+        }
+      };
+      
+      localStorage.setItem('mahjongScores', JSON.stringify(scores));
+      alert('点数が更新されました！');
+    });
+  </script>
+</body>
+</html>
