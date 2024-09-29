@@ -45,7 +45,7 @@
   </ul>
 
   <script>
-    const firebaseConfig = {
+ const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
   authDomain: "majan-786e2.firebaseapp.com",
   projectId: "majan-786e2",
@@ -57,6 +57,7 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
+    // Firestoreのデータをリアルタイムで監視
     db.collection('scores').doc('current').onSnapshot((doc) => {
       if (doc.exists) {
         const data = doc.data();
