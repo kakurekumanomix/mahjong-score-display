@@ -32,19 +32,19 @@
 
   <form id="scoreForm" class="container">
     <div class="up">
-      <label id="player1Label"></label>: <span id="player1CurrentScore">25000</span>点
+      <label id="player1Label">プレイヤー1</label>: <span id="player1CurrentScore">25000</span>点
       <input type="number" id="player1Change" placeholder="増減" required><br>
     </div>
     <div class="left">
-      <label id="player3Label"></label>: <span id="player3CurrentScore">25000</span>点
+      <label id="player3Label">プレイヤー3</label>: <span id="player3CurrentScore">25000</span>点
       <input type="number" id="player3Change" placeholder="増減" required><br>
     </div>
     <div class="right">
-      <label id="player4Label"></label>: <span id="player4CurrentScore">25000</span>点
+      <label id="player4Label">プレイヤー4</label>: <span id="player4CurrentScore">25000</span>点
       <input type="number" id="player4Change" placeholder="増減" required><br>
     </div>
     <div class="down">
-      <label id="player2Label"></label>: <span id="player2CurrentScore">25000</span>点
+      <label id="player2Label">プレイヤー2</label>: <span id="player2CurrentScore">25000</span>点
       <input type="number" id="player2Change" placeholder="増減" required><br>
     </div>
     <div class="center">
@@ -52,14 +52,9 @@
     </div>
   </form>
 
-  <!-- 点数表示ページに移動するボタン -->
-  <div style="text-align: center; margin-top: 20px;">
-    <button onclick="window.location.href='view.html'">点数表示ページに移動</button>
-  </div>
-
   <script>
     // Firebaseの設定
-  const firebaseConfig = {
+   const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
   authDomain: "majan-786e2.firebaseapp.com",
   projectId: "majan-786e2",
@@ -68,7 +63,6 @@
   appId: "1:571476331928:web:63b9707601866ca2432fed"
     };
 
-    // Firebaseを初期化
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
@@ -79,7 +73,6 @@
       player4: 25000
     };
 
-    // ページロード時に点数を表示
     function displayScores() {
       document.getElementById('player1CurrentScore').innerText = currentScores.player1;
       document.getElementById('player2CurrentScore').innerText = currentScores.player2;
@@ -87,40 +80,33 @@
       document.getElementById('player4CurrentScore').innerText = currentScores.player4;
     }
 
-    // ローカルストレージまたはFirestoreから現在の点数を取得する
     function loadScores() {
       db.collection('scores').doc('current').get().then((doc) => {
         if (doc.exists) {
           currentScores = doc.data();
+          displayScores();
         }
-        displayScores(); // 取得後に点数を表示
       });
     }
 
-    // 初期ロード時に点数を読み込み表示
     loadScores();
 
-    // フォーム送信処理
     const form = document.getElementById('scoreForm');
     form.addEventListener('submit', function(event) {
-      event.preventDefault(); // ページのリロードを防ぐ
+      event.preventDefault();
 
-      // 各プレイヤーの増減を取得
       const player1Change = parseInt(document.getElementById('player1Change').value) || 0;
       const player2Change = parseInt(document.getElementById('player2Change').value) || 0;
       const player3Change = parseInt(document.getElementById('player3Change').value) || 0;
       const player4Change = parseInt(document.getElementById('player4Change').value) || 0;
 
-      // 点数を更新
       currentScores.player1 += player1Change;
       currentScores.player2 += player2Change;
       currentScores.player3 += player3Change;
       currentScores.player4 += player4Change;
 
-      // Firestoreに点数を保存
       db.collection('scores').doc('current').set(currentScores).then(() => {
         alert('点数が更新されました！');
-        // 更新後に画面上の点数を反映
         displayScores();
       }).catch((error) => {
         console.error('エラーが発生しました:', error);
