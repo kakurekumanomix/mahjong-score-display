@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>麻雀点数表示ページにゃ</title>
 
-  <!-- Firebase SDKを読み込む -->
+  <!-- Firebase SDKの読み込み -->
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
 
@@ -45,7 +45,7 @@
   </ul>
 
   <script>
-    // Firebaseの設定
+    // Firebaseの初期化
     const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
   authDomain: "majan-786e2.firebaseapp.com",
@@ -55,7 +55,6 @@
   appId: "1:571476331928:web:63b9707601866ca2432fed"
     };
 
-    // Firebaseを初期化
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
