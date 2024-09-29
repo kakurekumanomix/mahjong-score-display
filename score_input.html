@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>点数入力</title>
+
+  <!-- Firebase SDK (バージョン8系のブラウザ用) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
   <style>
     .container {
       display: grid;
@@ -48,6 +53,7 @@
   </form>
 
   <script>
+    // Firebaseの設定
     const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
   authDomain: "majan-786e2.firebaseapp.com",
@@ -57,15 +63,18 @@
   appId: "1:571476331928:web:63b9707601866ca2432fed"
     };
 
+    // Firebaseを初期化
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
     // プレイヤー名をローカルストレージから取得
     const players = JSON.parse(localStorage.getItem('players'));
-    document.getElementById('player1Label').innerText = players.player1;
-    document.getElementById('player2Label').innerText = players.player2;
-    document.getElementById('player3Label').innerText = players.player3;
-    document.getElementById('player4Label').innerText = players.player4;
+    if (players) {
+      document.getElementById('player1Label').innerText = players.player1;
+      document.getElementById('player2Label').innerText = players.player2;
+      document.getElementById('player3Label').innerText = players.player3;
+      document.getElementById('player4Label').innerText = players.player4;
+    }
 
     // フォーム送信処理
     const form = document.getElementById('scoreForm');
