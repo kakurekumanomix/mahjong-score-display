@@ -39,7 +39,7 @@
     }
 
        /* プラスは青、マイナスは赤のスタイル */
-    .positive { color: blue; }
+    .positive { color: green; }
     .negative { color: red; }
 
      /* レスポンシブ対応: 画面幅が768px以下の時 */
@@ -58,20 +58,21 @@
       }
     }
 
-    /* レスポンシブ対応: 画面幅が480px以下の時（モバイル） */
+       /* レスポンシブ対応: 480px以下で上下左右にユーザ名や点数を表示 */
     @media (max-width: 480px) {
       .container {
-        grid-template-areas:
+        display: grid;
+        grid-template-areas: 
           "up"
           "left"
           "center"
           "right"
           "down";
-        grid-gap: 5px;
+        grid-gap: 10px;
         margin-top: 20px;
       }
-      .container div {
-        font-size: 14px; /* 文字サイズを小さく */
+      .up, .left, .right, .down, .center {
+        text-align: center; /* 中央揃え */
       }
       img {
         width: 80%; /* 画像を少し小さめに */
