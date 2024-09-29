@@ -41,7 +41,7 @@
 
   <script>
     // Firebaseの設定
-    const firebaseConfig = {
+   const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
   authDomain: "majan-786e2.firebaseapp.com",
   projectId: "majan-786e2",
@@ -50,11 +50,9 @@
   appId: "1:571476331928:web:63b9707601866ca2432fed"
     };
 
-    // Firebaseを初期化
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // フォーム送信時にユーザ名をFirestoreに保存
     const form = document.getElementById('userForm');
     form.addEventListener('submit', function(event) {
       event.preventDefault();
