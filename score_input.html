@@ -54,7 +54,7 @@
 
   <script>
     // Firebaseの設定
-   const firebaseConfig = {
+    const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
   authDomain: "majan-786e2.firebaseapp.com",
   projectId: "majan-786e2",
@@ -63,20 +63,51 @@
   appId: "1:571476331928:web:63b9707601866ca2432fed"
     };
 
+    // Firebaseを初期化
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Firestoreからユーザ名を取得し表示
-    db.collection('scores').doc('current').get().then((doc) => {
-      if (doc.exists) {
-        const data = doc.data();
-        document.getElementById('player1Label').innerText = data.player1Name;
-        document.getElementById('player2Label').innerText = data.player2Name;
-        document.getElementById('player3Label').innerText = data.player3Name;
-        document.getElementById('player4Label').innerText = data.player4Name;
-      }
-    });
+    let currentScores = {
+      player1: 25000,
+      player2: 25000,
+      player3: 25000,
+      player4: 25000
+    };
 
+    // ページが読み込まれたときにFirestoreからユーザ名と点数を取得して表示
+    function loadUsernamesAndScores() {
+      db.collection('scores').doc('current').get().then((doc) => {
+        if (doc.exists) {
+          const data = doc.data();
+          document.getElementById('player1Label').innerText = data.player1Name || 'プレイヤー1';
+          document.getElementById('player2Label').innerText = data.player2Name || 'プレイヤー2';
+          document.getElementById('player3Label').innerText = data.player3Name || 'プレイヤー3';
+          document.getElementById('player4Label').innerText = data.player4Name || 'プレイヤー4';
+
+          currentScores.player1 = data.player1 || 25000;
+          currentScores.player2 = data.player2 || 25000;
+          currentScores.player3 = data.player3 || 25000;
+          currentScores.player4 = data.player4 || 25000;
+
+          displayScores();
+        }
+      }).catch((error) => {
+        console.error('エラーが発生しました:', error);
+      });
+    }
+
+    // 点数を表示
+    function displayScores() {
+      document.getElementById('player1CurrentScore').innerText = currentScores.player1;
+      document.getElementById('player2CurrentScore').innerText = currentScores.player2;
+      document.getElementById('player3CurrentScore').innerText = currentScores.player3;
+      document.getElementById('player4CurrentScore').innerText = currentScores.player4;
+    }
+
+    // 初期ロード時にユーザ名と点数を読み込み表示
+    loadUsernamesAndScores();
+
+    // フォーム送信処理
     const form = document.getElementById('scoreForm');
     form.addEventListener('submit', function(event) {
       event.preventDefault();
@@ -86,15 +117,15 @@
       const player3Change = parseInt(document.getElementById('player3Change').value) || 0;
       const player4Change = parseInt(document.getElementById('player4Change').value) || 0;
 
-      let currentScores = {
-        player1: 25000 + player1Change,
-        player2: 25000 + player2Change,
-        player3: 25000 + player3Change,
-        player4: 25000 + player4Change
-      };
+      currentScores.player1 += player1Change;
+      currentScores.player2 += player2Change;
+      currentScores.player3 += player3Change;
+      currentScores.player4 += player4Change;
 
-      db.collection('scores').doc('current').update(currentScores).then(() => {
-        alert('点数が更新されました');
+      // Firestoreに点数を保存
+      db.collection('scores').doc('current').set(currentScores).then(() => {
+        alert('点数が更新されました！');
+        displayScores();
       }).catch((error) => {
         console.error('エラーが発生しました:', error);
       });
