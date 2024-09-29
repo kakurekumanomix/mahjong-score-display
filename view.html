@@ -313,7 +313,7 @@
         currentScores.player4 = data.player4 || 25000;
 
         
-       // 👑を表示
+      // 👑を表示
         displayCrown();
       } else {
         console.log('ドキュメントが見つかりません');
@@ -324,7 +324,6 @@
 
     // 👑を表示する関数
     function displayCrown() {
-      // プレイヤーのスコアを比較
       const scores = [
         { player: 'player1', score: currentScores.player1 },
         { player: 'player2', score: currentScores.player2 },
@@ -335,15 +334,15 @@
       const highestScore = Math.max(...scores.map(s => s.score));
 
       // 👑を消去
-      document.getElementById('player1Crown').innerText = '';
-      document.getElementById('player2Crown').innerText = '';
-      document.getElementById('player3Crown').innerText = '';
-      document.getElementById('player4Crown').innerText = '';
+      document.getElementById('player1Crown').textContent = '';
+      document.getElementById('player2Crown').textContent = '';
+      document.getElementById('player3Crown').textContent = '';
+      document.getElementById('player4Crown').textContent = '';
 
       // 最も高い点数のプレイヤーに👑を表示
       scores.forEach(player => {
         if (player.score === highestScore) {
-          document.getElementById(player.player + 'Crown').innerText = '👑';
+          document.getElementById(player.player + 'Crown').textContent = '👑';
         }
       });
     }
