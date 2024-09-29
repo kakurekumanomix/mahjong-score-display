@@ -38,9 +38,7 @@
         <option value="-1">マイナス</option>
       </select>
       <select id="player1Change" required>
-        <!-- 100から50000まで100刻みで表示 -->
-        <option value="0">0</option>
-        <!-- 自動で100から50000までのオプションを生成 -->
+        <option value="0" selected>0</option>
         <script>
           for (let i = 100; i <= 50000; i += 100) {
             document.write(`<option value="${i}">${i}</option>`);
@@ -56,6 +54,7 @@
         <option value="-1">マイナス</option>
       </select>
       <select id="player3Change" required>
+        <option value="0" selected>0</option>
         <script>
           for (let i = 100; i <= 50000; i += 100) {
             document.write(`<option value="${i}">${i}</option>`);
@@ -71,6 +70,7 @@
         <option value="-1">マイナス</option>
       </select>
       <select id="player4Change" required>
+        <option value="0" selected>0</option>
         <script>
           for (let i = 100; i <= 50000; i += 100) {
             document.write(`<option value="${i}">${i}</option>`);
@@ -86,6 +86,7 @@
         <option value="-1">マイナス</option>
       </select>
       <select id="player2Change" required>
+        <option value="0" selected>0</option>
         <script>
           for (let i = 100; i <= 50000; i += 100) {
             document.write(`<option value="${i}">${i}</option>`);
@@ -101,7 +102,7 @@
 
   <script>
     // Firebaseの設定
-    const firebaseConfig = {
+ const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
   authDomain: "majan-786e2.firebaseapp.com",
   projectId: "majan-786e2",
