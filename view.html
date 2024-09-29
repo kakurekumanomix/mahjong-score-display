@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>麻雀点数表示</title>
+</head>
+<body>
+  <h1>現在の点数</h1>
+  <ul id="scoreList"></ul>
+
+  <script>
+    function updateScores() {
+      const scores = JSON.parse(localStorage.getItem('mahjongScores'));
+      if (scores) {
+        const scoreList = document.getElementById('scoreList');
+        scoreList.innerHTML = `
+          <li>${scores.player1.name}: ${scores.player1.score}点</li>
+          <li>${scores.player2.name}: ${scores.player2.score}点</li>
+          <li>${scores.player3.name}: ${scores.player3.score}点</li>
+          <li>${scores.player4.name}: ${scores.player4.score}点</li>
+        `;
+      } else {
+        alert('まだ点数が入力されていません。');
+      }
+    }
+
+    // ページがロードされた時に点数を更新
+    window.onload = updateScores;
+  </script>
+</body>
+</html>
