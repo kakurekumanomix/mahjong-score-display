@@ -62,6 +62,11 @@
       animation: score-change 0.5s ease-in-out;
     }
 
+/* 更新ボタンのコンテナ */
+    .update-button-container {
+      margin-top: 30px; /* ボタンをさらに下に配置 */
+    }
+    
     /* リセットボタンと履歴表示ボタンをフレックスコンテナに */
     .button-container {
       display: flex;
@@ -222,9 +227,9 @@ button:active {
 
    
 <!-- 更新ボタン -->
-  <div class="down">
-    <button type="submit" id="updateButton">更新にゃ</button>
-  </div>
+  <div class="update-button-container">
+      <button type="submit" id="updateButton">更新にゃ</button>
+    </div>
 </form>
 
 <div class="button-container">
