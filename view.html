@@ -42,6 +42,41 @@
 <body>
   <h1>麻雀点数表示ページにゃ</h1>
 
+  
+  <!-- 局選択プルダウン -->
+<div class="round-selection" style="text-align: center; margin-top: 20px;">
+  <label for="roundSelect">局を選択するにゃ:</label>
+  <select id="roundSelect">
+    <option value="東1">東1</option>
+    <option value="東2">東2</option>
+    <option value="東3">東3</option>
+    <option value="東4">東4</option>
+    <option value="南1">南1</option>
+    <option value="南2">南2</option>
+    <option value="南3">南3</option>
+    <option value="南4">南4</option>
+  </select>
+</div>
+
+<!-- 本場選択プルダウン -->
+<div class="honba-selection" style="text-align: center; margin-top: 10px;">
+  <label for="honbaSelect">本場を選択するにゃ:</label>
+  <select id="honbaSelect">
+    <option value="0" selected>0本場</option>
+    <option value="1">1本場</option>
+    <option value="2">2本場</option>
+    <option value="3">3本場</option>
+    <option value="4">4本場</option>
+    <option value="5">5本場</option>
+    <option value="6">6本場</option>
+    <option value="7">7本場</option>
+    <option value="8">8本場</option>
+    <option value="9">9本場</option>
+  </select>
+</div>
+
+
+  
   <!-- ユーザ名と点数の変更が可能なフォーム -->
   <form id="scoreForm" class="container">
     <div class="up">
@@ -206,6 +241,11 @@
       const player3Change = parseInt(document.getElementById('player3Sign').value) * parseInt(document.getElementById('player3Change').value);
       const player4Change = parseInt(document.getElementById('player4Sign').value) * parseInt(document.getElementById('player4Change').value);
 
+      const round = document.getElementById('roundSelect').value; // 選択された局
+      const honba = document.getElementById('honbaSelect').value; // 選択された本場
+
+
+      
       currentScores.player1 += player1Change;
       currentScores.player2 += player2Change;
       currentScores.player3 += player3Change;
@@ -233,6 +273,8 @@
     player2Change: player2Change,
     player3Change: player3Change,
     player4Change: player4Change,
+    round: round,  // 局情報
+    honba: honba,  // 本場情報
     timestamp: firebase.firestore.FieldValue.serverTimestamp() // 現在のタイムスタンプを保存
   }).then(() => {
     console.log("履歴が保存されたにゃ！");
