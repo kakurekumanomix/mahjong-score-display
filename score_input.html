@@ -24,33 +24,32 @@
 </head>
 <body>
   <h1>点数入力</h1>
-  <ul id="scoreList" class="container">
+
+  <!-- フォームに正しいID "scoreForm" を設定 -->
+  <form id="scoreForm" class="container">
     <div class="up">
-      <label id="player1Label"></label>:
-      <span id="player1CurrentScore">25000</span>点
+      <label id="player1Label"></label>: <span id="player1CurrentScore">25000</span>点
       <input type="number" id="player1Change" placeholder="増減" required><br>
     </div>
     <div class="left">
-      <label id="player3Label"></label>:
-      <span id="player3CurrentScore">25000</span>点
+      <label id="player3Label"></label>: <span id="player3CurrentScore">25000</span>点
       <input type="number" id="player3Change" placeholder="増減" required><br>
     </div>
     <div class="right">
-      <label id="player4Label"></label>:
-      <span id="player4CurrentScore">25000</span>点
+      <label id="player4Label"></label>: <span id="player4CurrentScore">25000</span>点
       <input type="number" id="player4Change" placeholder="増減" required><br>
     </div>
     <div class="down">
-      <label id="player2Label"></label>:
-      <span id="player2CurrentScore">25000</span>点
+      <label id="player2Label"></label>: <span id="player2CurrentScore">25000</span>点
       <input type="number" id="player2Change" placeholder="増減" required><br>
     </div>
     <div class="center">
       <button type="submit" id="updateButton">更新にゃ</button>
     </div>
-  </ul>
+  </form>
 
   <script>
+    // プレイヤー情報を取得
     const players = JSON.parse(localStorage.getItem('players'));
     let scores = JSON.parse(localStorage.getItem('mahjongScores'));
 
@@ -68,25 +67,9 @@
 
     displayScores();
 
+    // フォーム送信処理
     const form = document.getElementById('scoreForm');
     form.addEventListener('submit', function(event) {
-      event.preventDefault();
+      event.preventDefault(); // ページのリロードを防ぐ
 
-      const player1Change = parseInt(document.getElementById('player1Change').value);
-      const player2Change = parseInt(document.getElementById('player2Change').value);
-      const player3Change = parseInt(document.getElementById('player3Change').value);
-      const player4Change = parseInt(document.getElementById('player4Change').value);
-
-      scores.player1 += player1Change;
-      scores.player2 += player2Change;
-      scores.player3 += player3Change;
-      scores.player4 += player4Change;
-
-      localStorage.setItem('mahjongScores', JSON.stringify(scores));
-
-      displayScores();
-      alert('点数が更新されました！');
-    });
-  </script>
-</body>
-</html>
+      // 各プ
