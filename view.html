@@ -55,15 +55,16 @@
   appId: "1:571476331928:web:63b9707601866ca2432fed"
     };
 
+    // Firebaseを初期化
     firebase.initializeApp(firebaseConfig);
-    const db = firebase
+    const db = firebase.firestore();
 
-      // Firestoreのデータをリアルタイムで監視して表示
+    // Firestoreのデータをリアルタイムで監視して表示
     db.collection('scores').doc('current').onSnapshot((doc) => {
       if (doc.exists) {
         const data = doc.data();
 
-        // 点数入力ページと同じユーザ名と点数を表示
+        // Firestoreから取得したユーザ名と点数を表示
         document.getElementById('player1Label').innerText = data.player1Name || '未設定';
         document.getElementById('player2Label').innerText = data.player2Name || '未設定';
         document.getElementById('player3Label').innerText = data.player3Name || '未設定';
