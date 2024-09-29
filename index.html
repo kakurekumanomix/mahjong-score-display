@@ -3,70 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>麻雀ゲーム - ユーザー名入力</title>
+  <title>ユーザ名入力</title>
+
+  <!-- Firebase SDK (バージョン8系のブラウザ用) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
   <style>
     .container {
-      display: grid;
-      grid-template-areas: 
-        "up up up"
-        "left center right"
-        "down down down";
-      grid-gap: 20px;
       text-align: center;
       margin-top: 50px;
     }
-    .up { grid-area: up; }
-    .left { grid-area: left; }
-    .right { grid-area: right; }
-    .down { grid-area: down; }
-    .center { grid-area: center; }
   </style>
 </head>
 <body>
-  <h1>プレイヤー名を入力してください</h1>
-  <form id="playerForm" class="container">
-    <div class="up">
-      <label for="player1">上 (東):</label><br>
-      <input type="text" id="player1" required>
-    </div>
-    <div class="left">
-      <label for="player3">左 (南):</label><br>
-      <input type="text" id="player3" required>
-    </div>
-    <div class="right">
-      <label for="player4">右 (北):</label><br>
-      <input type="text" id="player4" required>
-    </div>
-    <div class="down">
-      <label for="player2">下 (西):</label><br>
-      <input type="text" id="player2" required>
-    </div>
-    <div class="center">
-      <button type="submit">ゲームスタート</button>
-    </div>
-  </form>
+  <h1>ユーザ名入力</h1>
+
+  <div class="container">
+    <form id="userForm">
+      <div>
+        <label for="player1Name">プレイヤー1名:</label>
+        <input type="text" id="player1Name" placeholder="プレイヤー1名" required><br><br>
+
+        <label for="player2Name">プレイヤー2名:</label>
+        <input type="text" id="player2Name" placeholder="プレイヤー2名" required><br><br>
+
+        <label for="player3Name">プレイヤー3名:</label>
+        <input type="text" id="player3Name" placeholder="プレイヤー3名" required><br><br>
+
+        <label for="player4Name">プレイヤー4名:</label>
+        <input type="text" id="player4Name" placeholder="プレイヤー4名" required><br><br>
+      </div>
+
+      <button type="submit">保存</button>
+    </form>
+  </div>
 
   <script>
-    const form = document.getElementById('playerForm');
+    // Firebaseの設定
+    const firebaseConfig = {
+  apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
+  authDomain: "majan-786e2.firebaseapp.com",
+  projectId: "majan-786e2",
+  storageBucket: "majan-786e2.appspot.com",
+  messagingSenderId: "571476331928",
+  appId: "1:571476331928:web:63b9707601866ca2432fed"
+    };
+
+    // Firebaseを初期化
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // フォーム送信時にユーザ名をFirestoreに保存
+    const form = document.getElementById('userForm');
     form.addEventListener('submit', function(event) {
       event.preventDefault();
-      
-      const players = {
-        player1: document.getElementById('player1').value,
-        player2: document.getElementById('player2').value,
-        player3: document.getElementById('player3').value,
-        player4: document.getElementById('player4').value
-      };
 
-      localStorage.setItem('players', JSON.stringify(players));
-      localStorage.setItem('mahjongScores', JSON.stringify({
-        player1: 25000,
-        player2: 25000,
-        player3: 25000,
-        player4: 25000
-      }));
-      
-      window.location.href = 'score_input.html';
+      const player1Name = document.getElementById('player1Name').value;
+      const player2Name = document.getElementById('player2Name').value;
+      const player3Name = document.getElementById('player3Name').value;
+      const player4Name = document.getElementById('player4Name').value;
+
+      // Firestoreにユーザ名を保存
+      db.collection('scores').doc('current').set({
+        player1Name: player1Name,
+        player2Name: player2Name,
+        player3Name: player3Name,
+        player4Name: player4Name
+      }).then(() => {
+        alert('ユーザ名が保存されました');
+        window.location.href = 'score_input.html'; // 次のページへ移動
+      }).catch((error) => {
+        console.error('エラーが発生しました:', error);
+      });
     });
   </script>
 </body>
