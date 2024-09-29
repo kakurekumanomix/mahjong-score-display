@@ -31,16 +31,16 @@
 
   <ul id="scoreList" class="container">
     <div class="up">
-      <label id="player1Label"></label>: <span id="player1Score"></span>点
+      <label id="player1Label"></label>: <span id="player1Score">未設定</span>点
     </div>
     <div class="left">
-      <label id="player3Label"></label>: <span id="player3Score"></span>点
+      <label id="player3Label"></label>: <span id="player3Score">未設定</span>点
     </div>
     <div class="right">
-      <label id="player4Label"></label>: <span id="player4Score"></span>点
+      <label id="player4Label"></label>: <span id="player4Score">未設定</span>点
     </div>
     <div class="down">
-      <label id="player2Label"></label>: <span id="player2Score"></span>点
+      <label id="player2Label"></label>: <span id="player2Score">未設定</span>点
     </div>
   </ul>
 
@@ -61,23 +61,25 @@
 
     // プレイヤー名をローカルストレージから取得
     const players = JSON.parse(localStorage.getItem('players'));
-    document.getElementById('player1Label').innerText = players.player1;
-    document.getElementById('player2Label').innerText = players.player2;
-    document.getElementById('player3Label').innerText = players.player3;
-    document.getElementById('player4Label').innerText = players.player4;
+    if (players) {
+      document.getElementById('player1Label').innerText = players.player1;
+      document.getElementById('player2Label').innerText = players.player2;
+      document.getElementById('player3Label').innerText = players.player3;
+      document.getElementById('player4Label').innerText = players.player4;
+    } else {
+      console.log("プレイヤー情報が存在しません");
+    }
 
     // Firestoreのデータをリアルタイムで監視
     db.collection('scores').doc('current').onSnapshot((doc) => {
       if (doc.exists) {
         const data = doc.data();
-        // データが存在するか確認してから表示
+        // データが存在する場合のみ表示
         if (data) {
-          document.getElementById('player1Score').innerText = data.player1 ?? '未設定';
-          document.getElementById('player2Score').innerText = data.player2 ?? '未設定';
-          document.getElementById('player3Score').innerText = data.player3 ?? '未設定';
-          document.getElementById('player4Score').innerText = data.player4 ?? '未設定';
-        } else {
-          console.log("データが存在しません");
+          document.getElementById('player1Score').innerText = data.player1 !== undefined ? data.player1 : '未設定';
+          document.getElementById('player2Score').innerText = data.player2 !== undefined ? data.player2 : '未設定';
+          document.getElementById('player3Score').innerText = data.player3 !== undefined ? data.player3 : '未設定';
+          document.getElementById('player4Score').innerText = data.player4 !== undefined ? data.player4 : '未設定';
         }
       } else {
         console.log("ドキュメントが存在しません");
