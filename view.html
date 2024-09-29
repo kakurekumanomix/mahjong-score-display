@@ -65,8 +65,9 @@
     /* リセットボタンと履歴表示ボタンをフレックスコンテナに */
     .button-container {
       display: flex;
-      justify-content: center;
-      gap: 0px; /* ボタン間の隙間を0にする */
+      flex-direction: column; /* ボタンを縦方向に配置 */
+      align-items: center; /* ボタンを中央揃え */
+      gap: 10px; /* ボタン間の隙間を調整 */
       margin-top: 20px;
     }
     
