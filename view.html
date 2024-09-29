@@ -46,7 +46,7 @@
 
   <script>
     // Firebaseの設定
-   const firebaseConfig = {
+    const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
   authDomain: "majan-786e2.firebaseapp.com",
   projectId: "majan-786e2",
@@ -55,6 +55,7 @@
   appId: "1:571476331928:web:63b9707601866ca2432fed"
     };
 
+    // Firebaseを初期化
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
@@ -63,6 +64,7 @@
       if (doc.exists) {
         const data = doc.data();
 
+        // ユーザ名と点数を表示
         document.getElementById('player1Label').innerText = data.player1Name || '未設定';
         document.getElementById('player2Label').innerText = data.player2Name || '未設定';
         document.getElementById('player3Label').innerText = data.player3Name || '未設定';
@@ -72,7 +74,11 @@
         document.getElementById('player2Score').innerText = data.player2 || '未設定';
         document.getElementById('player3Score').innerText = data.player3 || '未設定';
         document.getElementById('player4Score').innerText = data.player4 || '未設定';
+      } else {
+        console.log('ドキュメントが見つかりません');
       }
+    }, (error) => {
+      console.error("データの読み取り中にエラーが発生しました: ", error);
     });
   </script>
 </body>
