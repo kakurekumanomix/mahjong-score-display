@@ -39,12 +39,12 @@
     <thead>
       <tr>
         <th>局</th>
-      <th>本場</th>
-      <th>プレイヤー1の変動</th>
-      <th>プレイヤー2の変動</th>
-      <th>プレイヤー3の変動</th>
-      <th>プレイヤー4の変動</th>
-      <th>日時</th>
+        <th>本場</th>
+        <th id="player1Header">プレイヤー1の変動</th>
+        <th id="player2Header">プレイヤー2の変動</th>
+        <th id="player3Header">プレイヤー3の変動</th>
+        <th id="player4Header">プレイヤー4の変動</th>
+        <th>日時</th>
       </tr>
     </thead>
     <tbody>
@@ -65,12 +65,12 @@
   <script>
     // Firebaseの設定
     const firebaseConfig = {
-  apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
-  authDomain: "majan-786e2.firebaseapp.com",
-  projectId: "majan-786e2",
-  storageBucket: "majan-786e2.appspot.com",
-  messagingSenderId: "571476331928",
-  appId: "1:571476331928:web:63b9707601866ca2432fed"
+      apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
+      authDomain: "majan-786e2.firebaseapp.com",
+      projectId: "majan-786e2",
+      storageBucket: "majan-786e2.appspot.com",
+      messagingSenderId: "571476331928",
+      appId: "1:571476331928:web:63b9707601866ca2432fed"
     };
 
     // Firebaseを初期化
@@ -93,20 +93,20 @@
           const historyTableBody = document.querySelector('#historyTable tbody');
           historyTableBody.innerHTML = ''; // テーブルをクリア
 
-         querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      const row = `
-        <tr>
-          <td>${data.round || '不明'}</td>
-          <td>${data.honba || 0}本場</td>
-          <td>${data.player1Change || 0}</td>
-          <td>${data.player2Change || 0}</td>
-          <td>${data.player3Change || 0}</td>
-          <td>${data.player4Change || 0}</td>
-          <td>${data.timestamp ? data.timestamp.toDate().toLocaleString() : '不明'}</td>
-        </tr>
-      `;
-      historyTableBody.innerHTML += row;
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const row = `
+              <tr>
+                <td>${data.round || '不明'}</td>
+                <td>${data.honba || 0}本場</td>
+                <td>${data.player1Change || 0}</td>
+                <td>${data.player2Change || 0}</td>
+                <td>${data.player3Change || 0}</td>
+                <td>${data.player4Change || 0}</td>
+                <td>${data.timestamp ? data.timestamp.toDate().toLocaleString() : '不明'}</td>
+              </tr>
+            `;
+            historyTableBody.innerHTML += row;
           });
         });
       }
