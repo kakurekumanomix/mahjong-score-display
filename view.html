@@ -311,12 +311,42 @@
         currentScores.player2 = data.player2 || 25000;
         currentScores.player3 = data.player3 || 25000;
         currentScores.player4 = data.player4 || 25000;
+
+        
+       // 👑を表示
+        displayCrown();
       } else {
         console.log('ドキュメントが見つかりません');
       }
     }, (error) => {
       console.error("データの読み取り中にエラーが発生しました: ", error);
     });
+
+    // 👑を表示する関数
+    function displayCrown() {
+      // プレイヤーのスコアを比較
+      const scores = [
+        { player: 'player1', score: currentScores.player1 },
+        { player: 'player2', score: currentScores.player2 },
+        { player: 'player3', score: currentScores.player3 },
+        { player: 'player4', score: currentScores.player4 }
+      ];
+
+      const highestScore = Math.max(...scores.map(s => s.score));
+
+      // 👑を消去
+      document.getElementById('player1Crown').innerText = '';
+      document.getElementById('player2Crown').innerText = '';
+      document.getElementById('player3Crown').innerText = '';
+      document.getElementById('player4Crown').innerText = '';
+
+      // 最も高い点数のプレイヤーに👑を表示
+      scores.forEach(player => {
+        if (player.score === highestScore) {
+          document.getElementById(player.player + 'Crown').innerText = '👑';
+        }
+      });
+    }
 
     // フォーム送信処理
     const form = document.getElementById('scoreForm');
@@ -375,40 +405,7 @@
   });
 });
 
-   // 👑を表示
-        displayCrown();
-      } else {
-        console.log('ドキュメントが見つかりません');
-      }
-    }, (error) => {
-      console.error("データの読み取り中にエラーが発生しました: ", error);
-    });
-    
-// 👑を表示する関数
-    function displayCrown() {
-      // プレイヤーのスコアを比較
-      const scores = [
-        { player: 'player1', score: currentScores.player1 },
-        { player: 'player2', score: currentScores.player2 },
-        { player: 'player3', score: currentScores.player3 },
-        { player: 'player4', score: currentScores.player4 }
-      ];
 
-      const highestScore = Math.max(...scores.map(s => s.score));
-
-      // 👑を消去
-      document.getElementById('player1Crown').innerText = '';
-      document.getElementById('player2Crown').innerText = '';
-      document.getElementById('player3Crown').innerText = '';
-      document.getElementById('player4Crown').innerText = '';
-
-      // 最も高い点数のプレイヤーに👑を表示
-      scores.forEach(player => {
-        if (player.score === highestScore) {
-          document.getElementById(player.player + 'Crown').innerText = '👑';
-        }
-      });
-    }
     
     // 点数リセット処理
     const resetButton = document.getElementById('resetButton');
