@@ -19,7 +19,6 @@
     .left { grid-area: left; }
     .right { grid-area: right; }
     .down { grid-area: down; }
-    .center { grid-area: center; }
   </style>
 </head>
 <body>
@@ -41,28 +40,33 @@
   </ul>
 
   <script>
-    function updateScores() {
-      const players = JSON.parse(localStorage.getItem('players'));
-      const scores = JSON.parse(localStorage.getItem('mahjongScores'));
+   const firebaseConfig = {
+  apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
+  authDomain: "majan-786e2.firebaseapp.com",
+  projectId: "majan-786e2",
+  storageBucket: "majan-786e2.appspot.com",
+  messagingSenderId: "571476331928",
+  appId: "1:571476331928:web:63b9707601866ca2432fed"
+    };
 
-      document.getElementById('player1Label').innerText = players.player1;
-      document.getElementById('player2Label').innerText = players.player2;
-      document.getElementById('player3Label').innerText = players.player3;
-      document.getElementById('player4Label').innerText = players.player4;
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-      document.getElementById('player1Score').innerText = scores.player1;
-      document.getElementById('player2Score').innerText = scores.player2;
-      document.getElementById('player3Score').innerText = scores.player3;
-      document.getElementById('player4Score').innerText = scores.player4;
-    }
+    // プレイヤー名をローカルストレージから取得
+    const players = JSON.parse(localStorage.getItem('players'));
+    document.getElementById('player1Label').innerText = players.player1;
+    document.getElementById('player2Label').innerText = players.player2;
+    document.getElementById('player3Label').innerText = players.player3;
+    document.getElementById('player4Label').innerText = players.player4;
 
-    // ページがロードされた時に点数を更新
-    window.onload = updateScores;
-
-    // 5秒ごとにページをリロードして最新の点数を反映
-    setInterval(function() {
-      location.reload();
-    }, 5000);  // 5000ミリ秒 = 5秒
+    // Firestoreのデータをリアルタイムで監視
+    db.collection('scores').doc('current').onSnapshot((doc) => {
+      const data = doc.data();
+      document.getElementById('player1Score').innerText = data.player1;
+      document.getElementById('player2Score').innerText = data.player2;
+      document.getElementById('player3Score').innerText = data.player3;
+      document.getElementById('player4Score').innerText = data.player4;
+    });
   </script>
 </body>
 </html>
