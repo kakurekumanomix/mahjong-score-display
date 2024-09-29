@@ -42,6 +42,45 @@
     .positive { color: blue; }
     .negative { color: red; }
 
+     /* レスポンシブ対応: 画面幅が768px以下の時 */
+    @media (max-width: 768px) {
+      .container {
+        grid-template-areas:
+          "up"
+          "left"
+          "center"
+          "right"
+          "down";
+        grid-gap: 10px;
+      }
+      img {
+        width: 100%; /* 画像が画面幅に応じてリサイズされる */
+      }
+    }
+
+    /* レスポンシブ対応: 画面幅が480px以下の時（モバイル） */
+    @media (max-width: 480px) {
+      .container {
+        grid-template-areas:
+          "up"
+          "left"
+          "center"
+          "right"
+          "down";
+        grid-gap: 5px;
+        margin-top: 20px;
+      }
+      .container div {
+        font-size: 14px; /* 文字サイズを小さく */
+      }
+      img {
+        width: 80%; /* 画像を少し小さめに */
+      }
+      h1 {
+        font-size: 20px; /* タイトルのフォントサイズを縮小 */
+      }
+    }
+
      /* アニメーションの定義 */
     @keyframes score-change {
       from {
