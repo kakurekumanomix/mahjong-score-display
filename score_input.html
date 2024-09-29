@@ -38,17 +38,14 @@
         <option value="-1">マイナス</option>
       </select>
       <select id="player1Change" required>
+        <!-- 100から50000まで100刻みで表示 -->
         <option value="0">0</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
-        <option value="300">300</option>
-        <option value="400">400</option>
-        <option value="500">500</option>
-        <option value="600">600</option>
-        <option value="700">700</option>
-        <option value="800">800</option>
-        <option value="900">900</option>
-        <option value="1000">1000</option>
+        <!-- 自動で100から50000までのオプションを生成 -->
+        <script>
+          for (let i = 100; i <= 50000; i += 100) {
+            document.write(`<option value="${i}">${i}</option>`);
+          }
+        </script>
       </select><br>
     </div>
 
@@ -59,10 +56,11 @@
         <option value="-1">マイナス</option>
       </select>
       <select id="player3Change" required>
-        <option value="0">0</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
-        <!-- 他のオプションも同様 -->
+        <script>
+          for (let i = 100; i <= 50000; i += 100) {
+            document.write(`<option value="${i}">${i}</option>`);
+          }
+        </script>
       </select><br>
     </div>
 
@@ -73,9 +71,11 @@
         <option value="-1">マイナス</option>
       </select>
       <select id="player4Change" required>
-        <option value="0">0</option>
-        <option value="100">100</option>
-        <!-- 他のオプションも同様 -->
+        <script>
+          for (let i = 100; i <= 50000; i += 100) {
+            document.write(`<option value="${i}">${i}</option>`);
+          }
+        </script>
       </select><br>
     </div>
 
@@ -86,9 +86,11 @@
         <option value="-1">マイナス</option>
       </select>
       <select id="player2Change" required>
-        <option value="0">0</option>
-        <option value="100">100</option>
-        <!-- 他のオプションも同様 -->
+        <script>
+          for (let i = 100; i <= 50000; i += 100) {
+            document.write(`<option value="${i}">${i}</option>`);
+          }
+        </script>
       </select><br>
     </div>
 
@@ -99,7 +101,7 @@
 
   <script>
     // Firebaseの設定
-     const firebaseConfig = {
+    const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
   authDomain: "majan-786e2.firebaseapp.com",
   projectId: "majan-786e2",
