@@ -3,77 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>麻雀点数入力</title>
+  <title>麻雀ゲーム - ユーザー名入力</title>
+  <style>
+    .container {
+      display: grid;
+      grid-template-areas: 
+        "up up up"
+        "left center right"
+        "down down down";
+      grid-gap: 20px;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .up { grid-area: up; }
+    .left { grid-area: left; }
+    .right { grid-area: right; }
+    .down { grid-area: down; }
+    .center { grid-area: center; }
+  </style>
 </head>
 <body>
-  <h1>麻雀の点数入力ページ</h1>
-
-  <h2>現在の点数</h2>
-  <ul id="currentScores">
-    <li>プレイヤー1: <span id="player1CurrentScore">25000</span> 点</li>
-    <li>プレイヤー2: <span id="player2CurrentScore">25000</span> 点</li>
-    <li>プレイヤー3: <span id="player3CurrentScore">25000</span> 点</li>
-    <li>プレイヤー4: <span id="player4CurrentScore">25000</span> 点</li>
-  </ul>
-
-  <h2>点数の増減を入力</h2>
-  <form id="scoreForm">
-    <label for="player1Change">プレイヤー1の増減:</label>
-    <input type="number" id="player1Change" placeholder="増減" required><br>
-
-    <label for="player2Change">プレイヤー2の増減:</label>
-    <input type="number" id="player2Change" placeholder="増減" required><br>
-
-    <label for="player3Change">プレイヤー3の増減:</label>
-    <input type="number" id="player3Change" placeholder="増減" required><br>
-
-    <label for="player4Change">プレイヤー4の増減:</label>
-    <input type="number" id="player4Change" placeholder="増減" required><br>
-
-    <button type="submit">点数を更新</button>
+  <h1>プレイヤー名を入力してください</h1>
+  <form id="playerForm" class="container">
+    <div class="up">
+      <label for="player1">上 (東):</label><br>
+      <input type="text" id="player1" required>
+    </div>
+    <div class="left">
+      <label for="player3">左 (南):</label><br>
+      <input type="text" id="player3" required>
+    </div>
+    <div class="right">
+      <label for="player4">右 (北):</label><br>
+      <input type="text" id="player4" required>
+    </div>
+    <div class="down">
+      <label for="player2">下 (西):</label><br>
+      <input type="text" id="player2" required>
+    </div>
+    <div class="center">
+      <button type="submit">ゲームスタート</button>
+    </div>
   </form>
 
   <script>
-    // 初期の点数
-    let scores = JSON.parse(localStorage.getItem('mahjongScores')) || {
-      player1: 25000,
-      player2: 25000,
-      player3: 25000,
-      player4: 25000
-    };
-
-    // 現在の点数を表示
-    document.getElementById('player1CurrentScore').innerText = scores.player1;
-    document.getElementById('player2CurrentScore').innerText = scores.player2;
-    document.getElementById('player3CurrentScore').innerText = scores.player3;
-    document.getElementById('player4CurrentScore').innerText = scores.player4;
-
-    const form = document.getElementById('scoreForm');
+    const form = document.getElementById('playerForm');
     form.addEventListener('submit', function(event) {
       event.preventDefault();
+      
+      const players = {
+        player1: document.getElementById('player1').value,
+        player2: document.getElementById('player2').value,
+        player3: document.getElementById('player3').value,
+        player4: document.getElementById('player4').value
+      };
 
-      // 各プレイヤーの増減を取得
-      const player1Change = parseInt(document.getElementById('player1Change').value);
-      const player2Change = parseInt(document.getElementById('player2Change').value);
-      const player3Change = parseInt(document.getElementById('player3Change').value);
-      const player4Change = parseInt(document.getElementById('player4Change').value);
-
-      // 点数を更新
-      scores.player1 += player1Change;
-      scores.player2 += player2Change;
-      scores.player3 += player3Change;
-      scores.player4 += player4Change;
-
-      // 更新後の点数を保存
-      localStorage.setItem('mahjongScores', JSON.stringify(scores));
-
-      // 現在の点数を再表示
-      document.getElementById('player1CurrentScore').innerText = scores.player1;
-      document.getElementById('player2CurrentScore').innerText = scores.player2;
-      document.getElementById('player3CurrentScore').innerText = scores.player3;
-      document.getElementById('player4CurrentScore').innerText = scores.player4;
-
-      alert('点数が更新されました！');
+      localStorage.setItem('players', JSON.stringify(players));
+      localStorage.setItem('mahjongScores', JSON.stringify({
+        player1: 25000,
+        player2: 25000,
+        player3: 25000,
+        player4: 25000
+      }));
+      
+      window.location.href = 'score_input.html';
     });
   </script>
 </body>
