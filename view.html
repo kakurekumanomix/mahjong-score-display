@@ -37,6 +37,23 @@
       margin-top: 20px;
       text-align: center;
     }
+
+     /* アニメーションの定義 */
+    @keyframes score-change {
+      from {
+        opacity: 0;
+        transform: scale(1.2);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .score-change {
+      animation: score-change 0.5s ease-in-out;
+    }
+    
   </style>
 </head>
 <body>
@@ -203,6 +220,53 @@
     db.collection('scores').doc('current').onSnapshot((doc) => {
       if (doc.exists) {
         const data = doc.data();
+
+        const player1ScoreElement = document.getElementById('player1CurrentScore');
+        const previousPlayer1Score = parseInt(player1ScoreElement.innerText, 10);
+
+        if (data.player1 !== undefined && data.player1 !== previousPlayer1Score) {
+          player1ScoreElement.innerText = data.player1;
+          player1ScoreElement.classList.add('score-change');
+          setTimeout(() => {
+            player1ScoreElement.classList.remove('score-change');
+          }, 500);
+        }
+
+         // 同様に他のプレイヤーの点数にもアニメーションを適用
+        const player2ScoreElement = document.getElementById('player2CurrentScore');
+        const previousPlayer2Score = parseInt(player2ScoreElement.innerText, 10);
+
+        if (data.player2 !== undefined && data.player2 !== previousPlayer2Score) {
+          player2ScoreElement.innerText = data.player2;
+          player2ScoreElement.classList.add('score-change');
+          setTimeout(() => {
+            player2ScoreElement.classList.remove('score-change');
+          }, 500);
+        }
+
+         // 同様に他のプレイヤーの点数にもアニメーションを適用
+        const player3ScoreElement = document.getElementById('player3CurrentScore');
+        const previousPlayer3Score = parseInt(player3ScoreElement.innerText, 10);
+
+        if (data.player3 !== undefined && data.player3 !== previousPlayer3Score) {
+          player3ScoreElement.innerText = data.player3;
+          player3ScoreElement.classList.add('score-change');
+          setTimeout(() => {
+            player3ScoreElement.classList.remove('score-change');
+          }, 500);
+        }
+
+         // 同様に他のプレイヤーの点数にもアニメーションを適用
+        const player4ScoreElement = document.getElementById('player4CurrentScore');
+        const previousPlayer4Score = parseInt(player4ScoreElement.innerText, 10);
+
+        if (data.player4 !== undefined && data.player4 !== previousPlayer4Score) {
+          player4ScoreElement.innerText = data.player4;
+          player4ScoreElement.classList.add('score-change');
+          setTimeout(() => {
+            player4ScoreElement.classList.remove('score-change');
+          }, 500);
+        }
 
         // Firestoreから取得したユーザ名と点数を表示
         document.getElementById('player1Label').innerText = data.player1Name || '未設定';
