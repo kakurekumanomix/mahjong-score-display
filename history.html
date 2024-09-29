@@ -38,11 +38,13 @@
   <table id="historyTable">
     <thead>
       <tr>
-        <th id="player1Header">プレイヤー1の変動</th>
-        <th id="player2Header">プレイヤー2の変動</th>
-        <th id="player3Header">プレイヤー3の変動</th>
-        <th id="player4Header">プレイヤー4の変動</th>
-        <th>日時</th>
+        <th>局</th>
+      <th>本場</th>
+      <th>プレイヤー1の変動</th>
+      <th>プレイヤー2の変動</th>
+      <th>プレイヤー3の変動</th>
+      <th>プレイヤー4の変動</th>
+      <th>日時</th>
       </tr>
     </thead>
     <tbody>
@@ -91,18 +93,20 @@
           const historyTableBody = document.querySelector('#historyTable tbody');
           historyTableBody.innerHTML = ''; // テーブルをクリア
 
-          querySnapshot.forEach((historyDoc) => {
-            const historyData = historyDoc.data();
-            const row = `
-              <tr>
-                <td>${historyData.player1Change || 0}</td>
-                <td>${historyData.player2Change || 0}</td>
-                <td>${historyData.player3Change || 0}</td>
-                <td>${historyData.player4Change || 0}</td>
-                <td>${historyData.timestamp ? historyData.timestamp.toDate().toLocaleString() : '不明'}</td>
-              </tr>
-            `;
-            historyTableBody.innerHTML += row;
+         querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const row = `
+        <tr>
+          <td>${data.round || '不明'}</td>
+          <td>${data.honba || 0}本場</td>
+          <td>${data.player1Change || 0}</td>
+          <td>${data.player2Change || 0}</td>
+          <td>${data.player3Change || 0}</td>
+          <td>${data.player4Change || 0}</td>
+          <td>${data.timestamp ? data.timestamp.toDate().toLocaleString() : '不明'}</td>
+        </tr>
+      `;
+      historyTableBody.innerHTML += row;
           });
         });
       }
