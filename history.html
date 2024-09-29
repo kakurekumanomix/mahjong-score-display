@@ -38,10 +38,10 @@
   <table id="historyTable">
     <thead>
       <tr>
-        <th>プレイヤー1の変動</th>
-        <th>プレイヤー2の変動</th>
-        <th>プレイヤー3の変動</th>
-        <th>プレイヤー4の変動</th>
+        <th id="player1Header">プレイヤー1の変動</th>
+        <th id="player2Header">プレイヤー2の変動</th>
+        <th id="player3Header">プレイヤー3の変動</th>
+        <th id="player4Header">プレイヤー4の変動</th>
         <th>日時</th>
       </tr>
     </thead>
@@ -60,7 +60,7 @@
     <button onclick="location.href='view.html'">点数表示ページに戻るにゃ</button>
   </div>
 
- <script>
+  <script>
     // Firebaseの設定
     const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
@@ -76,23 +76,36 @@
     const db = firebase.firestore();
 
     // Firestoreのデータをリアルタイムで読み込み
-    db.collection('history').orderBy('timestamp', 'desc').onSnapshot((querySnapshot) => {
-      const historyTableBody = document.querySelector('#historyTable tbody');
-      historyTableBody.innerHTML = ''; // テーブルをクリア
-
-      querySnapshot.forEach((doc) => {
+    db.collection('scores').doc('current').onSnapshot((doc) => {
+      if (doc.exists) {
         const data = doc.data();
-        const row = `
-          <tr>
-            <td>${data.player1Name}: ${data.player1Change || 0}</td>
-            <td>${data.player2Name}: ${data.player2Change || 0}</td>
-            <td>${data.player3Name}: ${data.player3Change || 0}</td>
-            <td>${data.player4Name}: ${data.player4Change || 0}</td>
-            <td>${data.timestamp ? data.timestamp.toDate().toLocaleString() : '不明'}</td>
-          </tr>
-        `;
-        historyTableBody.innerHTML += row;
-      });
+
+        // プレイヤー名を履歴ページに反映
+        document.getElementById('player1Header').innerText = `${data.player1Name} の変動`;
+        document.getElementById('player2Header').innerText = `${data.player2Name} の変動`;
+        document.getElementById('player3Header').innerText = `${data.player3Name} の変動`;
+        document.getElementById('player4Header').innerText = `${data.player4Name} の変動`;
+
+        // 履歴を表示
+        db.collection('history').orderBy('timestamp', 'desc').onSnapshot((querySnapshot) => {
+          const historyTableBody = document.querySelector('#historyTable tbody');
+          historyTableBody.innerHTML = ''; // テーブルをクリア
+
+          querySnapshot.forEach((historyDoc) => {
+            const historyData = historyDoc.data();
+            const row = `
+              <tr>
+                <td>${historyData.player1Change || 0}</td>
+                <td>${historyData.player2Change || 0}</td>
+                <td>${historyData.player3Change || 0}</td>
+                <td>${historyData.player4Change || 0}</td>
+                <td>${historyData.timestamp ? historyData.timestamp.toDate().toLocaleString() : '不明'}</td>
+              </tr>
+            `;
+            historyTableBody.innerHTML += row;
+          });
+        });
+      }
     });
 
     // 履歴リセット処理
