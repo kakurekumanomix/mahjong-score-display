@@ -33,20 +33,65 @@
   <form id="scoreForm" class="container">
     <div class="up">
       <label id="player1Label">プレイヤー1</label>: <span id="player1CurrentScore">25000</span>点
-      <input type="number" id="player1Change" placeholder="増減" required><br>
+      <select id="player1Sign">
+        <option value="1">プラス</option>
+        <option value="-1">マイナス</option>
+      </select>
+      <select id="player1Change" required>
+        <option value="0">0</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+        <option value="400">400</option>
+        <option value="500">500</option>
+        <option value="600">600</option>
+        <option value="700">700</option>
+        <option value="800">800</option>
+        <option value="900">900</option>
+        <option value="1000">1000</option>
+      </select><br>
     </div>
+
     <div class="left">
       <label id="player3Label">プレイヤー3</label>: <span id="player3CurrentScore">25000</span>点
-      <input type="number" id="player3Change" placeholder="増減" required><br>
+      <select id="player3Sign">
+        <option value="1">プラス</option>
+        <option value="-1">マイナス</option>
+      </select>
+      <select id="player3Change" required>
+        <option value="0">0</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <!-- 他のオプションも同様 -->
+      </select><br>
     </div>
+
     <div class="right">
       <label id="player4Label">プレイヤー4</label>: <span id="player4CurrentScore">25000</span>点
-      <input type="number" id="player4Change" placeholder="増減" required><br>
+      <select id="player4Sign">
+        <option value="1">プラス</option>
+        <option value="-1">マイナス</option>
+      </select>
+      <select id="player4Change" required>
+        <option value="0">0</option>
+        <option value="100">100</option>
+        <!-- 他のオプションも同様 -->
+      </select><br>
     </div>
+
     <div class="down">
       <label id="player2Label">プレイヤー2</label>: <span id="player2CurrentScore">25000</span>点
-      <input type="number" id="player2Change" placeholder="増減" required><br>
+      <select id="player2Sign">
+        <option value="1">プラス</option>
+        <option value="-1">マイナス</option>
+      </select>
+      <select id="player2Change" required>
+        <option value="0">0</option>
+        <option value="100">100</option>
+        <!-- 他のオプションも同様 -->
+      </select><br>
     </div>
+
     <div class="center">
       <button type="submit" id="updateButton">更新にゃ</button>
     </div>
@@ -54,7 +99,7 @@
 
   <script>
     // Firebaseの設定
-  const firebaseConfig = {
+     const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
   authDomain: "majan-786e2.firebaseapp.com",
   projectId: "majan-786e2",
@@ -96,7 +141,7 @@
       });
     }
 
-    // 初期点数を表示
+    // 点数を表示
     function displayScores() {
       document.getElementById('player1CurrentScore').innerText = currentScores.player1;
       document.getElementById('player2CurrentScore').innerText = currentScores.player2;
@@ -104,18 +149,18 @@
       document.getElementById('player4CurrentScore').innerText = currentScores.player4;
     }
 
-    // ページが読み込まれたときにデータを取得
+    // ページロード時にユーザ名と点数を読み込む
     loadUsernamesAndScores();
 
-    // フォーム送信時に点数を更新
+    // フォーム送信処理
     const form = document.getElementById('scoreForm');
     form.addEventListener('submit', function(event) {
       event.preventDefault();
 
-      const player1Change = parseInt(document.getElementById('player1Change').value) || 0;
-      const player2Change = parseInt(document.getElementById('player2Change').value) || 0;
-      const player3Change = parseInt(document.getElementById('player3Change').value) || 0;
-      const player4Change = parseInt(document.getElementById('player4Change').value) || 0;
+      const player1Change = parseInt(document.getElementById('player1Sign').value) * parseInt(document.getElementById('player1Change').value);
+      const player2Change = parseInt(document.getElementById('player2Sign').value) * parseInt(document.getElementById('player2Change').value);
+      const player3Change = parseInt(document.getElementById('player3Sign').value) * parseInt(document.getElementById('player3Change').value);
+      const player4Change = parseInt(document.getElementById('player4Sign').value) * parseInt(document.getElementById('player4Change').value);
 
       currentScores.player1 += player1Change;
       currentScores.player2 += player2Change;
