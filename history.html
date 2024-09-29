@@ -27,11 +27,14 @@
     th {
       background-color: #f2f2f2;
     }
+    .reset-button-container {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <h1>点数移動履歴</h1>
-  
+
   <table id="historyTable">
     <thead>
       <tr>
@@ -47,7 +50,17 @@
     </tbody>
   </table>
 
-  <script>
+  <!-- 履歴リセットボタン -->
+  <div class="reset-button-container">
+    <button id="resetHistoryButton">履歴リセット</button>
+  </div>
+
+  <!-- 点数表示ページに移動するボタン -->
+  <div class="navigation-button-container" style="text-align:center; margin-top: 20px;">
+    <button onclick="location.href='view.html'">点数表示ページに戻るにゃ</button>
+  </div>
+
+ <script>
     // Firebaseの設定
     const firebaseConfig = {
   apiKey: "AIzaSyAwKSRmulxjrdKPFl4ypueUBQp2sOxdHCU",
@@ -71,14 +84,29 @@
         const data = doc.data();
         const row = `
           <tr>
-            <td>${data.player1Change || 0}</td>
-            <td>${data.player2Change || 0}</td>
-            <td>${data.player3Change || 0}</td>
-            <td>${data.player4Change || 0}</td>
+            <td>${data.player1Name}: ${data.player1Change || 0}</td>
+            <td>${data.player2Name}: ${data.player2Change || 0}</td>
+            <td>${data.player3Name}: ${data.player3Change || 0}</td>
+            <td>${data.player4Name}: ${data.player4Change || 0}</td>
             <td>${data.timestamp ? data.timestamp.toDate().toLocaleString() : '不明'}</td>
           </tr>
         `;
         historyTableBody.innerHTML += row;
+      });
+    });
+
+    // 履歴リセット処理
+    const resetHistoryButton = document.getElementById('resetHistoryButton');
+    resetHistoryButton.addEventListener('click', function() {
+      // Firestoreのhistoryコレクションのドキュメントを削除
+      db.collection('history').get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref.delete();
+        });
+      }).then(() => {
+        alert('履歴がリセットされました！');
+      }).catch((error) => {
+        console.error('履歴リセット中にエラーが発生しました:', error);
       });
     });
   </script>
