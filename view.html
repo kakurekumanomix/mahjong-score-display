@@ -62,6 +62,14 @@
       animation: score-change 0.5s ease-in-out;
     }
 
+    /* リセットボタンと履歴表示ボタンをフレックスコンテナに */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 0px; /* ボタン間の隙間を0にする */
+      margin-top: 20px;
+    }
+    
     button {
   width: auto; /* 必要に応じてautoや固定値に変更 */
   height: 40px; /* ボタンの高さを固定 */
@@ -71,7 +79,7 @@
   text-align: center; /* テキストを中央に */
   background-color: #4CAF50; /* ボタンの背景色 */
   color: white; /* ボタンの文字色 */
-  margin-top:  100px;/
+  margin-top:  110px;/
 }
 
 button:active {
@@ -203,20 +211,20 @@ button:active {
 
    
 <!-- 更新ボタン -->
-  <div class="down">
+  <div class="botton">
     <button type="submit" id="updateButton">更新にゃ</button>
   </div>
 </form>
 
-<div class="reset-button-container">
-  <button id="resetButton">点数リセットにゃ</button>
-</div>
-
-   <!-- 履歴表示ページに移動するボタンを追加 -->
-  <div class="history-button-container">
-    <a href="history.html">
-      <button id="historyButton">履歴表示に移動するにゃ(作成中にゃ...)</button>
-    </a>
+<div class="button-container">
+    <div class="reset-button-container">
+      <button id="resetButton">点数リセットにゃ</button>
+    </div>
+    <div class="history-button-container">
+      <a href="history.html">
+        <button id="historyButton">履歴表示に移動するにゃ(作成中にゃ...)</button>
+      </a>
+    </div>
   </div>
   
   <!-- 画面下部に画像を埋め込む -->
