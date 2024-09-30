@@ -119,7 +119,11 @@ button:active {
     width: 100%; /* 幅を100%にして左寄せしやすく */
   }
 
-    
+  .bgm-button-container {
+    text-align: left; /* テキストやボタンを左に寄せる */
+    width: 100%; /* 幅を100%にして左寄せしやすく */
+  }
+
     /* プラスマイナスと点数入力プルダウンのスタイルを調整 */
 select {
   font-size: 14px; /* テキストサイズを大きく */
@@ -272,6 +276,11 @@ select {
         <button id="galleryButton">画像ギャラリーへ移動するにゃ</button>
       </a>
     </div>
+
+    <!-- BGM再生ボタンの追加 -->
+    <div class="bgm-button-container">
+      <button id="playBGMButton">BGMにゃ</button>
+    </div>
   
   </div>
   
@@ -280,6 +289,9 @@ select {
    <img src="public/images/myimage.png" alt="麻雀のイラスト">
   </div>
 
+<!-- Audioタグを使ったBGM再生 -->
+  <audio id="bgmPlayer" controls style="display:none;"></audio>
+  
   <script>
     // Firebaseの設定
     const firebaseConfig = {
@@ -479,6 +491,24 @@ select {
         console.error('エラーが発生したにゃ:', error);
       });
     });
+
+// ランダムなBGMを再生する機能
+    const playBGMButton = document.getElementById('playBGMButton');
+    const bgmPlayer = document.getElementById('bgmPlayer');
+    const bgmList = [
+      'public/bgm/song1.mp3', 
+      'public/bgm/song2.mp3', 
+      'public/bgm/song3.mp3'
+    ];
+
+    playBGMButton.addEventListener('click', function() {
+      const randomIndex = Math.floor(Math.random() * bgmList.length);
+      const selectedBGM = bgmList[randomIndex];
+      bgmPlayer.src = selectedBGM;
+      bgmPlayer.play();
+    });
+
+    
   </script>
 </body>
 </html>
