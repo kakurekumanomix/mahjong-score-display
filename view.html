@@ -280,6 +280,7 @@ select {
     <!-- BGM再生ボタンの追加 -->
     <div class="bgm-button-container">
       <button id="playBGMButton">BGMにゃ</button>
+      <button id="stopBGMButton">BGM停止にゃ</button>
     </div>
   
   </div>
@@ -508,6 +509,11 @@ select {
       bgmPlayer.play();
     });
 
+       // BGMを停止する機能
+    stopBGMButton.addEventListener('click', function() {
+      bgmPlayer.pause();
+      bgmPlayer.currentTime = 0; // 再生位置をリセット
+    });
     
   </script>
 </body>
