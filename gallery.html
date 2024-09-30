@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>画像ギャラリー表示ページ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <h1>画像ギャラリー表示ページにゃ</h1>
+  
+  <div class="gallery">
+    <img src="public/images/sample1.jpeg" alt="画像1">
+    <img src="public/images/sample2.jpeg" alt="画像2">
+    <img src="public/images/sample3.jpeg" alt="画像3">
+  </div>
+
+  <a href="index.html">戻る</a>
+</body>
+</html>
