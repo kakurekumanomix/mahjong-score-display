@@ -17,11 +17,29 @@
       gap: 10px;
     }
 
+    .image-container {
+      position: relative;
+      text-align: center;
+    }
+
     img {
       width: 100%;
       height: auto;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .overlay-text {
+      position: absolute;
+      top: 10px; /* テキストの位置を画像の上部に配置 */
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: rgba(0, 0, 0, 0.5); /* 背景を半透明にして読みやすくする */
+      padding: 5px;
+      border-radius: 5px;
     }
   </style>
 </head>
@@ -29,9 +47,18 @@
   <h1>画像ギャラリー表示ページにゃ</h1>
   
   <div class="gallery">
-    <img src="public/images/myimage.png" alt="画像1">
-    <img src="public/images/header-image.jpeg" alt="画像2">
-    <img src="public/images/5pin.jpeg" alt="画像3">
+    <div class="image-container">
+      <img src="public/images/myimage.png" alt="画像1">
+      <div class="overlay-text">石川画伯</div>
+    </div>
+    <div class="image-container">
+      <img src="public/images/header-image.jpeg" alt="画像2">
+      <div class="overlay-text">田頭画伯</div>
+    </div>
+    <div class="image-container">
+      <img src="public/images/5pin.jpeg" alt="画像3">
+      <div class="overlay-text">髙橋画伯</div>
+    </div>
   </div>
 
   <a href="view.html">戻る</a>
